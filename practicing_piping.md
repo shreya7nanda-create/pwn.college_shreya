@@ -148,7 +148,7 @@ output redirection to a file done use 1>
 
 # grepping live output
 
-###usage of pipe (|) operator
+### usage of pipe (|) operator
 
 **Flag:** pwn.college{g4nS4mlQJXyDJaU4HsPlvf3tBLs.QX5EDO0wiNxEzNzEzW}
 
@@ -172,11 +172,106 @@ stdout to the cmd at lhs of | will be stdin of cmd to rhs of |
 
 ## References
 
-# Challenge Name
+# grepping errors
 
 ### Put challenge description here
 
-**Flag:** `pwn.college{helloworld}`
+**Flag:** pwn.college{8kHDuE3WfLPccfJtpMRQa2T_kGW.QX1ATO0wiNxEzNzEzW}
+
+run a command to run multiple lines of text which is stderr,
+redirect stderr to stdout using ">&",
+this is the output which is used as input to rhs of pipe operator
+```
+#!/bin/bash
+
+/challenge/run 2>&1 | grep pwn.college
+
+flag generated
+```
+
+## What I learned
+
+a file descriptor can be redirected to another file descriptor using ">&"
+
+## References
+
+# filtering with grep -v
+
+### Put challenge description here
+
+**Flag:** pwn.college{Ux17aRp7pyIKqOXVLQF7iLEzGiy.0FOxEzNxwiNxEzNzEzW}
+
+run a challenge which generates multiple flags
+use pipe operator to make sure the output of this(generation of multiple flags) is the
+input to grep -v DECOY which filters out all the decoy flags and gives the real flag
+```
+#!/bin/bash
+
+/challenge/run grep -v DECOY
+
+flag generated
+```
+
+## What I learned
+
+we can use grep -v "keyword" to filter out all the documents/files containing that keyword
+and to generate all the files that does NOT have that keyword
+
+## References
+
+# duplicating piped data with tee
+
+### a way to show the output that we're piping to be the input of what's on the rhs of |
+
+**Flag:** pwn.college{w7Uvrw7Gd4cGmOwuuaJa3rUOlmI.QXxITO0wiNxEzNzEzW}
+
+use pipe operator to make stdout of lhs of | as stdin of rhs of | ,
+use "tee" to copy output of lhs of | into a file,
+cat that file to see output and find out what's needed to generate flag
+
+```
+#!/bin/bash
+
+/challenge/pwn | tee pwn | /challenge/college
+cat pwn
+/challenge/pwn --secret w7Uvrw7G |  /challenge/college
+
+flag generated
+```
+
+## What I learned
+
+we can use "tee" to store stdout of lhs of | to a file
+
+## References
+
+# process substitution for input
+
+### 
+
+**Flag:** pwn.college{YM2rsXJDONR7hb_BqHeqOh7sfgU.0lNwMDOxwiNxEzNzEzW}
+
+
+```
+diff <(/challenge/print_decoys) <(/challenge/print_decoys_and_flag)
+
+flag generated
+
+pwn.college{helloworld}
+```
+
+## What I learned
+*input and output of programs can be hooked to arguments of commands using "process substitution"
+*stdout of a command is hooked to a "file" that is not real (called named pipe)
+using <(command).
+
+## References
+
+# writing to multiple programs
+
+### Put challenge description here
+
+**Flag:** pwn.college{UqXcrIsO_d0QMZzM5pWYS_EcUw9.QXwgDN1wiNxEzNzEzW}
 
 explain your solve and how you got to it, explain any incorrect tangents you went on while solving.
 
@@ -187,9 +282,61 @@ don't style it too much, your solve should be readable and understandable by you
 ```
 #!/bin/bash
 
-example triple ticks for bash
+/challenge/hack | tee >(/challenge/the) >(/challenge/planet)
 
-pwn.college{helloworld}
+flage generated
+```
+
+## What I learned
+
+explain what you learned
+
+## References
+
+# split-piping stderr and stdout
+
+### Put challenge description here
+
+**Flag:** pwn.college{o6YyVeeOPEttK6q0EiAXoGDf1vs.QXxQDM2wiNxEzNzEzW}
+
+explain your solve and how you got to it, explain any incorrect tangents you went on while solving.
+
+to put code snippets, put three backticks and for images and all other stuff you wish to put here, refer to the documentation given to you.
+
+don't style it too much, your solve should be readable and understandable by you so that when you have doubts, you refer to your own writeups, instead of gpt.
+
+```
+#!/bin/bash
+
+/challenge/hack 1> >(/challenge/planet) 2> >(/challenge/the)
+```
+
+## What I learned
+
+explain what you learned
+
+## References
+
+# named pipes
+
+### Put challenge description here
+
+**Flag:** pwn.college{0mTEZCW6csKwMTHMuA7sV-ZDdQ1.01MzMDOxwiNxEzNzEzW}
+
+explain your solve and how you got to it, explain any incorrect tangents you went on while solving.
+
+to put code snippets, put three backticks and for images and all other stuff you wish to put here, refer to the documentation given to you.
+
+don't style it too much, your solve should be readable and understandable by you so that when you have doubts, you refer to your own writeups, instead of gpt.
+
+```
+#!/bin/bash
+
+mkfifo /tmp/flag_fifo
+/challenge/run 1> /tmp/flag_fifo
+ cat /tmp/flag_fifo
+ flag generated
+ (confirm)
 ```
 
 ## What I learned
