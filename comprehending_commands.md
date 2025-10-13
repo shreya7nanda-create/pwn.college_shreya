@@ -1,8 +1,62 @@
-# Challenge Name
+# cat : not the pet, but the command!
 
-### Put challenge description here
+**Flag:**pwn.college{otpdUPV3gs_6rf9qkXPAXlud5HL.QXxcTN0wiNxEzNzEzW}
 
-**Flag:** `pwn.college{helloworld}`
+
+```
+#!/bin/bash
+
+cat flag
+```
+
+## What I learned
+
+* cat reads out files given as its argument
+* multiple files can be given as argument to cat (cat concatenates the multiple files and prints the contents of each of those   files)
+
+# catting absolute paths
+
+**Flag:** pwn.college{AV9SiV4ds6aig3EQpS0DvBj2yn-.QX5ETO0wiNxEzNzEzW}
+
+
+```
+#!/bin/bash
+
+cat /flag
+```
+
+## What I learned
+
+* the arguments of cat can be absolute paths
+
+# more catting practice
+
+**Flag:** pwn.college{cOtFDJieUP_5DVc9YM7ApN49JPk.QXwITO0wiNxEzNzEzW}
+
+
+```
+#!/bin/bash
+
+cat /usr/share/mime-info/flag
+```
+
+# grepping for a needle in a haystack
+
+**Flag:** pwn.college{wPIK6amzqAwHWwZNx00vK-H9ZF6.QX3EDO0wiNxEzNzEzW}
+
+```
+#!/bin/bash
+
+grep pwn.college /challenge/data.txt
+```
+
+## What I learned
+
+* grep [string_to_be_found] [file_name/path]
+
+# comparing files
+
+**Flag:** 
 
 explain your solve and how you got to it, explain any incorrect tangents you went on while solving.
 
@@ -20,7 +74,7 @@ pwn.college{helloworld}
 
 ## What I learned
 
-explain what you learned
+* "diff" is the command which compares 2 files line by line
 
 ## References
 
